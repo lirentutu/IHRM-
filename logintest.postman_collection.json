@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "aecd40dc-3ecc-4210-8777-20cce1e45b8d",
+		"name": "login-0927",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"item": [
+				{
+					"name": "登录成功",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e25dfc68-2e1d-4c0f-9d5d-e4986fd60dd3",
+								"exec": [
+									"pm.test(\"登录成功\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"123456\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户名错误",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9644d7a-788e-4905-97c5-ec9ebfd4e7fd",
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mobile\":\"13802020202\",\n\t\"password\":\"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户名为空",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c92ac6f0-5149-46e7-a02c-d0a55adff821",
+								"exec": [
+									"pm.test(\"Body is correct\", function () {",
+									"    pm.response.to.have.body(\"用户名或密码错误\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"\", \r\n\"password\":\"123456\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "密码错误",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c92ac6f0-5149-46e7-a02c-d0a55adff821",
+								"exec": [
+									"pm.test(\"Body is correct\", function () {",
+									"    pm.response.to.have.body({",
+									"    \"success\": false,",
+									"    \"code\": 20001,",
+									"    \"message\": \"用户名或密码错误\",",
+									"    \"data\": null",
+									"});",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"123654\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "密码为空",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c92ac6f0-5149-46e7-a02c-d0a55adff821",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
